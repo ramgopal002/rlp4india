@@ -1,11 +1,138 @@
-<html>
-<head>
-</head>
-<body>
-RLP4india
-  
-   <a href='https://www.stat-counter.org/'>Counters with Stats</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=2969967b056cafb981ef9d68c0236040785ef211'></script>
-<script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/434810/t/0"></script>
-  
-</body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Hit Counter</title>
+        <style>
+            body {
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+                text-align: center;
+            }
+            h1, h2 {
+                text-align: center;
+                background: #3572A5;
+                color: white;
+                margin: 0;
+            }
+            h1 {
+                font-size: 60px;
+                padding: 15px;
+            }
+            h1 > a {
+                text-decoration: none;
+                color: white;
+            }
+            h2 {
+                font-size: 25px;
+                padding: 10px;
+                font-weight: 100;
+                margin: 10px 0;
+            }
+            body > p, body > div {
+                max-width: 80%;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+            }
+            input, select {
+                text-align: center;
+                border: 2px solid #3572A5;
+                font-size: 20px;
+                padding: 5px;
+            }
+            .head_text {
+                color: #3572A5;
+                text-align: center;
+                font-weight: bold;
+                margin-top: 13px;
+                margin-bottom: 13px;
+            }
+            .small_headers {
+                margin: 5px 0 2px 0;
+                font-size: 13px;
+                font-style: italic;
+            }
+            .copy_button {
+                border: 2px solid #3572A5;
+                cursor: pointer;
+                background: transparent;
+                font-size: 18px;
+                padding: 4px 50px;
+            }
+        </style>
+        <script>
+            function generateCode() {
+                let url = document.getElementById('url').value;
+                let count = document.getElementById('count').value;
+                let imageUrl = window.location.origin + '/' + count + '/tag.svg?url=' + encodeURIComponent(url);
+                document.getElementById('resultImageTag').innerText = '<img src="' + imageUrl + '" alt="Hits">';
+                document.getElementById('resultMarkdown').innerText = '![Hits](' + imageUrl + ')';
+                document.getElementById('resultImage').src = window.location.origin + '/nocount/tag.svg?url=' + encodeURIComponent(url);
+            }
+            function checkUrl() {
+                let url = document.getElementById('urlCheck').value;
+                document.getElementById('urlCheckImage').src = '/nocount/tag.svg?url=' + encodeURIComponent(url);
+            }
+            function copyContentOf(id) {
+                let text = document.getElementById(id).innerText;
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(text)
+                        .then(() => {})
+                        .catch(err => {
+                            console.error('Could not copy text: ', err);
+                        });
+                } else {
+                    let textArea = document.createElement("textarea");
+                    textArea.value = text;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    let successful = document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    if (!successful) {
+                        alert("Failed to copy")
+                    }
+                }
+            }
+            
+            function host() {
+                document.write(window.location.origin);
+            }
+        </script>
+    </head>
+    <body>
+    <h1><a href="https://github.com/brentvollebregt/hit-counter">Hit Counter</a></h1>
+        <p class="head_text">Easily count hits on a website by requesting a svg that displays a hit count.</p>
+        <div style="text-align: center;">
+            <img src="/count/tag.svg" alt="Hits">
+        </div>
+
+        <h2>Get the Image for the Website It's On</h2>
+        <p>If you want to get the hit count image for a page you can edit and you want to count, just put in this line:</p>
+        <p class="head_text" id="standard">&lt;img src="<script>host()</script>/count/tag.svg" alt="Hits"&gt;</p>
+        <button class="copy_button" onclick="copyContentOf('standard')">Copy</button>
+
+        <h2>Generate SVG Code For A Different Website</h2>
+        <div style="text-align: center;">
+            <input id="url" placeholder="https://github.com/brentvollebregt/hit-counter" value="https://github.com/brentvollebregt/hit-counter" style="width: 70%;" onkeyup="generateCode()">
+            <select id="count" style="width: 10%; font-size: 19px;" onchange="generateCode()">
+                <option>count</option>
+                <option>nocount</option>
+            </select>
+            <p class="small_headers">Image Tag</p>
+            <p id="resultImageTag" class="head_text" style="margin-top: 0"></p>
+            <p class="small_headers">Markdown</p>
+            <p id="resultMarkdown" class="head_text" style="margin-top: 0"></p>
+            <div style="margin: 10px 0;">
+                <img id="resultImage" src="">
+            </div>
+            <button class="copy_button" onclick="copyContentOf('resultImageTag')">Copy Image Tag</button>
+            <button class="copy_button" onclick="copyContentOf('resultMarkdown')">Copy Markdown</button>
+        </div>
+
+        <h2>Github Page</h2>
+        <p>If you want to check out the Github Page for this project, go to <a href="https://github.com/brentvollebregt/hit-counter">github.com/brentvollebregt/hit-counter</a>.</p>
+        <p>This also contains a tutorial for the project and other notes of what it is and how it works.</p>
+        <script>generateCode();</script>
+    </body>
 </html>
